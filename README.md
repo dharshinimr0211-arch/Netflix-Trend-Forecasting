@@ -166,15 +166,3 @@ The application will open in your browser.
 
 ![Insights](screenshots/insights_page.png)
 
-## Limitations
-
-- The dataset only contains information up to 2021.
-- Sudden changes in content additions are difficult to predict.
-- Model performance changes depending on the evaluation method.
-- Predictions are based on historical trends and may not match actual future content additions.
-
-## Conclusion
-
-Through this project, I learned how to work with time-series data, analyze historical trends, build forecasting models and compare their performance.
-
-I also understood how different forecasting models perform under different evaluation methods and how historical data can be used to generate future predictions.
