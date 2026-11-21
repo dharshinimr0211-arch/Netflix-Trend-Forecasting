@@ -1,129 +1,135 @@
-# Netflix Trend Forecasting
+# Netflix Content Type Prediction
 
-A time-series forecasting project that looks at Netflix's past content additions and predicts how many titles may be added in future months using different forecasting models.
+A machine learning classification model that predicts whether a Netflix title is a Movie or TV Show based on its release year and country.
 
-The project includes data analysis, model comparison and an interactive dashboard built using Streamlit.
+## Live Demo
 
-**Live Demo:** [Try Netflix Trend Forecasting](https://netflix-trend-forecasting.streamlit.app/)
+[View Live Application](YOUR_STREAMLIT_APP_URL)
 
-## Project Overview
+## About the Project
 
-This project uses historical Netflix data to understand how content additions have changed over time. I tested different forecasting models to see how well they could predict future content additions.
+Netflix Content Type Prediction is a machine learning application developed using Python and Streamlit. It uses information such as release year and country to classify Netflix titles into Movies or TV Shows.
 
-The Streamlit dashboard allows users to explore the trends, generate forecasts and compare model performance.
+The project involves data preprocessing, training different classification models and comparing their performance to select a suitable model.
+
+The application allows users to explore Netflix content, view model performance and predict the content type by entering a release year and country.
 
 ## Features
 
-- Analysis of Netflix content distribution.
-- Yearly and monthly content addition trends.
-- Preparing date-based features and checking stationarity.
-- Forecasting using ARIMA, SARIMA and Holt's Linear Trend.
-- Comparing the models with a simple Naive forecasting method.
-- Changing the number of months to forecast.
-- Showing 95% confidence intervals.
-- Comparing models using MAE and RMSE.
-- Downloading forecast results as a CSV file.
+- Analysis of Netflix Movies and TV Shows.
+- Visualization of content type distribution.
+- Analysis of ratings, countries and popular genres.
+- Training and comparison of Logistic Regression, Decision Tree and Random Forest models.
+- Hyperparameter tuning using GridSearchCV.
+- Evaluation using accuracy, precision, recall and F1-score.
+- Predicts whether a title is a Movie or TV Show.
+- Interactive dashboard built using Streamlit.
+
+## Machine Learning Approach
+
+### 1. Data Preprocessing
+
+- Loaded and explored the Netflix dataset.
+- Checked for missing values and duplicate records.
+- Selected relevant features for classification.
+- Used release year and country as input features.
+- Excluded duration because it directly indicates the content type.
+
+### 2. Model Training
+
+Trained and compared three classification algorithms:
+
+- Logistic Regression
+- Decision Tree Classifier
+- Random Forest Classifier
+
+### 3. Hyperparameter Tuning
+
+Used GridSearchCV to find suitable parameters for the Decision Tree classifier.
+
+### 4. Model Evaluation
+
+Evaluated the models using accuracy, precision, recall and F1-score.
+
+The tuned Decision Tree was selected as the final model because it provided better recall for the TV Show class.
+
+It achieved 71.16% accuracy, with a macro F1-score of 0.69 and TV Show recall of 74%.
 
 ## Technologies Used
 
 - Python
 - Pandas
 - NumPy
-- Matplotlib
-- Plotly
-- Statsmodels
 - Scikit-learn
+- Matplotlib
+- Seaborn
+- Plotly
+- Joblib
 - Streamlit
 - Jupyter Notebook
 
-## Project Workflow
+## Dataset
 
-1. **Time-Based Feature Preparation:** Converted the date column into datetime format and extracted the year and month.
-2. **Historical Trend Analysis:** Studied yearly and monthly content additions and checked whether the data was stationary.
-3. **Model Building:** Built and tested ARIMA, SARIMA, Holt's Linear Trend and Naive models.
-4. **Future Forecasting:** Used ARIMA to predict future monthly content additions.
-5. **Model Evaluation:** Compared the models using MAE, RMSE and rolling-origin validation.
+The project uses a Netflix Movies and TV Shows dataset containing information about titles, genres, directors, countries, ratings, release years and content types.
 
-## Model Evaluation
-
-I tested the models using a holdout test dataset and compared their results.
-
-| Model               |   MAE |   RMSE |
-| ------------------- | ----: | -----: |
-| ARIMA (0,1,1)       | 28.10 |  36.09 |
-| SARIMA              | 53.74 |  64.16 |
-| Holt's Linear Trend | 87.15 | 101.02 |
-| Naive               | 35.21 |  41.66 |
-
-ARIMA (0,1,1) gave the lowest MAE and RMSE in the holdout test.
-
-However, during rolling-origin validation, the Naive model performed slightly better than ARIMA. This means ARIMA did not perform better in every evaluation.
-
-## Dashboard Screenshots
-
-### 1. Overview
-
-![Overview](screenshots/overview_page.png)
-
-### 2. Content Analysis
-
-![Content Analysis](screenshots/content_analysis_page.png)
-
-### 3. Forecasting
-
-![Forecasting](screenshots/forecasting_page.png)
-
-### 4. Model Evaluation
-
-![Model Evaluation](screenshots/model_evaluation_page.png)
-
-![Performance Table](screenshots/performance_table.png)
-
-### 5. Insights
-
-![Insights](screenshots/insights_page.png)
+The dataset contains 8,790 records and 10 columns.
 
 ## Project Structure
 
 ```text
-Netflix-Trend-Forecasting/
+Netflix-Content-Type-Prediction/
 │
 ├── app.py
-├── Dataset.csv
-├── analysis.ipynb
+├── content.ipynb
+├── dataset.csv
 ├── requirements.txt
 ├── README.md
+│
+├── models/
+│   └── netflix_content_type_model.pkl
 │
 └── screenshots/
     ├── overview_page.png
     ├── content_analysis_page.png
-    ├── forecasting_page.png
-    ├── model_evaluation_page.png
-    ├── performance_table.png
-    └── insights_page.png
+    ├── model_performance_page.png
+    └── prediction_page.png
 ```
 
-## How to Run the Project
+## Installation and Execution
 
-**1. Clone the repository**
+### 1. Clone the Repository
 
 ```bash
-git https://github.com/dharshinimr0211-arch/Netflix-Trend-Forecasting.git
+git clone YOUR_GITHUB_REPOSITORY_URL
 ```
 
-**2. Open the project folder**
+### 2. Navigate to the Project Folder
 
 ```bash
-cd Netflix-Trend-Forecasting
+cd Netflix-Content-Type-Prediction
 ```
 
-**3. Install the required libraries**
+### 3. Create a Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### 4. Activate the Virtual Environment
+
+For Windows:
+
+```powershell
+venv\Scripts\activate
+```
+
+### 5. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-**4. Run the Streamlit application**
+### 6. Run the Application
 
 ```bash
 streamlit run app.py
@@ -131,19 +137,20 @@ streamlit run app.py
 
 The application will open in your browser.
 
-## Dataset
+## Application Preview
 
-The project uses a Netflix titles dataset with details such as content type, release year, date added, country and rating.
+### Overview
 
-**Note:** The dataset ends in 2021. So, the forecasts are based on past content addition patterns and do not represent Netflix's actual current or future releases.
+![Overview](screenshots/overview_page.png)
 
-## Limitations
+### Content Analysis
 
-- The dataset only contains information up to 2021.
-- Sudden changes in content additions are difficult to predict.
-- Model performance changes depending on the evaluation method.
-- The predictions are based on historical trends and may not match actual future content additions.
+![Content Analysis](screenshots/content_analysis_page.png)
 
-## Conclusion
+### Model Performance
 
-Through this project, I learned how to work with time-series data, analyze historical trends, build forecasting models and compare their performance.
+![Model Performance](screenshots/model_performance_page.png)
+
+### Content Type Prediction
+
+![Prediction](screenshots/prediction_page.png)
