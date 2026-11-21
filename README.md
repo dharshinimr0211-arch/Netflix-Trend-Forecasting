@@ -4,7 +4,7 @@ A time-series forecasting project that looks at Netflix's past content additions
 
 The project includes data analysis, model comparison and an interactive dashboard built using Streamlit.
 
-**Live Demo:** [Try Netflix Trend Forecasting](https://netflix-trend-forecasting.onrender.com/)
+**Live Demo:** [Try Netflix Trend Forecasting](https://netflix-trend-forecasting.streamlit.app/)
 
 ## Project Overview
 
