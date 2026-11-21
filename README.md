@@ -1,98 +1,117 @@
-# Netflix Content Type Prediction
+# Netflix Trend Forecasting
 
-A machine learning classification model that predicts whether a Netflix title is a Movie or TV Show based on its release year and country.
+A time-series forecasting project that analyzes Netflix's past content additions and predicts how many titles may be added in future months using different forecasting models.
 
 ## Live Demo
 
-[View Live Application](YOUR_STREAMLIT_APP_URL)
+[Try Netflix Trend Forecasting](https://netflix-trend-forecasting.streamlit.app/)
 
 ## About the Project
 
-Netflix Content Type Prediction is a machine learning application developed using Python and Streamlit. It uses information such as release year and country to classify Netflix titles into Movies or TV Shows.
+Netflix Trend Forecasting is a time-series forecasting application developed using Python and Streamlit. It uses historical Netflix data to understand how content additions have changed over time.
 
-The project involves data preprocessing, training different classification models and comparing their performance to select a suitable model.
+I tested different forecasting models to see how well they could predict future monthly content additions.
 
-The application allows users to explore Netflix content, view model performance and predict the content type by entering a release year and country.
+The application allows users to explore historical trends, generate forecasts, compare model performance and download forecast results.
 
 ## Features
 
-- Analysis of Netflix Movies and TV Shows.
-- Visualization of content type distribution.
-- Analysis of ratings, countries and popular genres.
-- Training and comparison of Logistic Regression, Decision Tree and Random Forest models.
-- Hyperparameter tuning using GridSearchCV.
-- Evaluation using accuracy, precision, recall and F1-score.
-- Predicts whether a title is a Movie or TV Show.
+- Analysis of Netflix content distribution.
+- Yearly and monthly content addition trends.
+- Date-based feature preparation and stationarity checking.
+- Forecasting using ARIMA, SARIMA and Holt's Linear Trend.
+- Comparison with a simple Naive forecasting method.
+- Option to change the number of months to forecast.
+- Displays 95% confidence intervals.
+- Model comparison using MAE and RMSE.
+- Downloadable forecast results as a CSV file.
 - Interactive dashboard built using Streamlit.
 
-## Machine Learning Approach
+## Forecasting Approach
 
 ### 1. Data Preprocessing
 
 - Loaded and explored the Netflix dataset.
-- Checked for missing values and duplicate records.
-- Selected relevant features for classification.
-- Used release year and country as input features.
-- Excluded duration because it directly indicates the content type.
+- Converted the date column into datetime format.
+- Extracted year and month from the date column.
+- Prepared monthly content addition data for forecasting.
 
-### 2. Model Training
+### 2. Historical Trend Analysis
 
-Trained and compared three classification algorithms:
+- Studied yearly and monthly content additions.
+- Visualized changes in Netflix content additions over time.
+- Checked whether the time-series data was stationary.
 
-- Logistic Regression
-- Decision Tree Classifier
-- Random Forest Classifier
+### 3. Model Building
 
-### 3. Hyperparameter Tuning
+Tested different forecasting models:
 
-Used GridSearchCV to find suitable parameters for the Decision Tree classifier.
+- ARIMA
+- SARIMA
+- Holt's Linear Trend
+- Naive Forecasting
 
-### 4. Model Evaluation
+### 4. Future Forecasting
 
-Evaluated the models using accuracy, precision, recall and F1-score.
+Used ARIMA to predict future monthly content additions.
 
-The tuned Decision Tree was selected as the final model because it provided better recall for the TV Show class.
+The dashboard also allows users to change the number of months for forecasting and view the predicted values with 95% confidence intervals.
 
-It achieved 71.16% accuracy, with a macro F1-score of 0.69 and TV Show recall of 74%.
+### 5. Model Evaluation
+
+Compared the forecasting models using MAE and RMSE. Rolling-origin validation was also used to check how the models performed across different forecasting periods.
 
 ## Technologies Used
 
 - Python
 - Pandas
 - NumPy
-- Scikit-learn
 - Matplotlib
-- Seaborn
 - Plotly
-- Joblib
+- Statsmodels
+- Scikit-learn
 - Streamlit
 - Jupyter Notebook
 
+## Model Evaluation
+
+I tested the models using a holdout test dataset and compared their results.
+
+| Model               |   MAE |   RMSE |
+| ------------------- | ----: | -----: |
+| ARIMA (0,1,1)       | 28.10 |  36.09 |
+| SARIMA              | 53.74 |  64.16 |
+| Holt's Linear Trend | 87.15 | 101.02 |
+| Naive               | 35.21 |  41.66 |
+
+ARIMA (0,1,1) gave the lowest MAE and RMSE in the holdout test.
+
+However, during rolling-origin validation, the Naive model performed slightly better than ARIMA. This means ARIMA did not perform better in every evaluation.
+
 ## Dataset
 
-The project uses a Netflix Movies and TV Shows dataset containing information about titles, genres, directors, countries, ratings, release years and content types.
+The project uses a Netflix titles dataset containing information such as content type, release year, date added, country and rating.
 
-The dataset contains 8,790 records and 10 columns.
+**Note:** The dataset ends in 2021. Therefore, the forecasts are based on past content addition patterns and do not represent Netflix's actual current or future releases.
 
 ## Project Structure
 
 ```text
-Netflix-Content-Type-Prediction/
+Netflix-Trend-Forecasting/
 │
 ├── app.py
-├── content.ipynb
-├── dataset.csv
+├── Dataset.csv
+├── analysis.ipynb
 ├── requirements.txt
 ├── README.md
-│
-├── models/
-│   └── netflix_content_type_model.pkl
 │
 └── screenshots/
     ├── overview_page.png
     ├── content_analysis_page.png
-    ├── model_performance_page.png
-    └── prediction_page.png
+    ├── forecasting_page.png
+    ├── model_evaluation_page.png
+    ├── performance_table.png
+    └── insights_page.png
 ```
 
 ## Installation and Execution
@@ -100,36 +119,22 @@ Netflix-Content-Type-Prediction/
 ### 1. Clone the Repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/dharshinimr0211-arch/Netflix-Trend-Forecasting.git
 ```
 
 ### 2. Navigate to the Project Folder
 
 ```bash
-cd Netflix-Content-Type-Prediction
+cd Netflix-Trend-Forecasting
 ```
 
-### 3. Create a Virtual Environment
-
-```bash
-python -m venv venv
-```
-
-### 4. Activate the Virtual Environment
-
-For Windows:
-
-```powershell
-venv\Scripts\activate
-```
-
-### 5. Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 6. Run the Application
+### 4. Run the Application
 
 ```bash
 streamlit run app.py
@@ -139,18 +144,37 @@ The application will open in your browser.
 
 ## Application Preview
 
-### Overview
+### 1. Overview
 
 ![Overview](screenshots/overview_page.png)
 
-### Content Analysis
+### 2. Content Analysis
 
 ![Content Analysis](screenshots/content_analysis_page.png)
 
-### Model Performance
+### 3. Forecasting
 
-![Model Performance](screenshots/model_performance_page.png)
+![Forecasting](screenshots/forecasting_page.png)
 
-### Content Type Prediction
+### 4. Model Evaluation
 
-![Prediction](screenshots/prediction_page.png)
+![Model Evaluation](screenshots/model_evaluation_page.png)
+
+![Performance Table](screenshots/performance_table.png)
+
+### 5. Insights
+
+![Insights](screenshots/insights_page.png)
+
+## Limitations
+
+- The dataset only contains information up to 2021.
+- Sudden changes in content additions are difficult to predict.
+- Model performance changes depending on the evaluation method.
+- Predictions are based on historical trends and may not match actual future content additions.
+
+## Conclusion
+
+Through this project, I learned how to work with time-series data, analyze historical trends, build forecasting models and compare their performance.
+
+I also understood how different forecasting models perform under different evaluation methods and how historical data can be used to generate future predictions.
